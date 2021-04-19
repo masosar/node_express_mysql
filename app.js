@@ -8,14 +8,18 @@ const app = express();
 app.use(bodyParser.json());
 
 //mySql
+
+//mysql://b96a31a520074a:ea1fc685@us-cdbr-east-03.cleardb.com/heroku_1d21a32f34fbb8d
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'spidermark',
-    database: 'nodeexmysql'
+    host: 'us-cdbr-east-03.cleardb.com',
+    user: 'b96a31a520074a',
+    password: 'ea1fc685',
+    database: 'heroku_1d21a32f34fbb8d'
 });
 
-//Create a route for the endpoint /
+
+
+//Create routes for the endpoints 
 app.get('/', (req, res) => {
     res.send('Welcome to my API');
 })

@@ -10,12 +10,18 @@ app.use(bodyParser.json());
 //mySql
 
 //mysql://b96a31a520074a:ea1fc685@us-cdbr-east-03.cleardb.com/heroku_1d21a32f34fbb8d
-const connection = mysql.createConnection({
+const connection = mysql.createPool({
     host: 'us-cdbr-east-03.cleardb.com',
     user: 'b96a31a520074a',
     password: 'ea1fc685',
     database: 'heroku_1d21a32f34fbb8d'
 });
+// const connection = mysql.createConnection({
+//     host: 'us-cdbr-east-03.cleardb.com',
+//     user: 'b96a31a520074a',
+//     password: 'ea1fc685',
+//     database: 'heroku_1d21a32f34fbb8d'
+// });
 
 
 
@@ -97,10 +103,10 @@ app.delete('/delete/:id', (req,res) => {
     });
 })
 
-//Check connection
-connection.connect(error => {
-    if (error) throw error;
-    console.log('Database server running!')
-})
+// //Check connection
+// connection.connect(error => {
+//     if (error) throw error;
+//     console.log('Database server running!')
+// })
 
 app.listen(PORT, ()=> console.log(`Server running in port ${PORT}`));

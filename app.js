@@ -4,10 +4,7 @@ const bodyParser = require("body-parser");
 
 const PORT = process.env.PORT || 3050;
 
-const cors = require("cors");
 const app = express();
-
-app.use(cors());
 
 // Add Access Control Allow Origin headers
 app.use((req, res, next) => {
@@ -125,18 +122,3 @@ app.delete("/delete/:id", (req, res) => {
 // })
 
 app.listen(PORT, () => console.log(`Server running in port ${PORT}`));
-
-// Make sure to use this when in prod
-// var whitelist = ['http://example1.com', 'http://example2.com']
-// var corsOptions = {
-//   origin: function (origin, callback) {
-//     if (whitelist.indexOf(origin) !== -1) {
-//       callback(null, true)
-//     } else {
-//       callback(new Error('Not allowed by CORS'))
-//     }
-//   }
-// }
-
-// // Then pass them to cors:
-// app.use(cors(corsOptions));

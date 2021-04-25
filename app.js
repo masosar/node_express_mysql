@@ -3,18 +3,29 @@ const cors = require("cors");
 const mysql = require("mysql");
 const bodyParser = require("body-parser");
 
+const whitelist = ['http://marcososa.me', 'http://submarcososa.me']
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+}
+
+
 const PORT = process.env.PORT || 3050;
 
 const app = express();
 
 app.use(cors());
 
+app.options('*', cors());
+
 // Add Access Control Allow Origin headers
 app.use((req, res, next) => {
-//   res.setHeader("Access-Control-Allow-Origin", "http://marcososa.me");
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-//  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.header("Access-Control-Allow-Origin", "http://marcososa.me");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
@@ -91,7 +102,7 @@ app.post("/add", (req, res) => {
   });
 });
 
-app.put("/update/:id", (req, res) => {
+app.put("/update/:id", cors(corsOptions), (req, res) => {
   const { id } = req.params;
   const {
     title,

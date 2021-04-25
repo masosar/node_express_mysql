@@ -102,7 +102,7 @@ app.post("/add", (req, res) => {
   });
 });
 
-app.put("/update/:id", cors(corsOptions), (req, res) => {
+app.put("/update/:id", cors(corsOptions), (req, res, next) => {
   const { id } = req.params;
   const {
     title,

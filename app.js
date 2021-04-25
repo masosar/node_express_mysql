@@ -52,12 +52,12 @@ const connection = mysql.createPool({
 // });
 
 //Create routes for the endpoints
-app.get("/", (req, res) => {
+app.get("/", (req, res, next) => {
   res.send("Welcome to my API");
 });
 
 //endpoint "movies"
-app.get("/movies", (req, res) => {
+app.get("/movies", cors(corsOptions), (req, res, next) => {
   const sql = "SELECT * FROM ghibli";
 
   connection.query(sql, (error, results) => {

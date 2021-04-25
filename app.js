@@ -11,8 +11,8 @@ app.use(cors());
 
 // Add Access Control Allow Origin headers
 app.use((req, res, next) => {
-   res.setHeader("Access-Control-Allow-Origin", "http://marcososa.me");
-//  res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader("Access-Control-Allow-Origin", "http://marcososa.me");
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
 //  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
   res.header(

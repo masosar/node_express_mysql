@@ -3,16 +3,16 @@ const cors = require("cors");
 const mysql = require("mysql");
 const bodyParser = require("body-parser");
 
-const whitelist = ['http://marcososa.me', 'http://submarcososa.me', 'http://localhost:3050']
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-}
+// const whitelist = ['http://marcososa.me', 'http://submarcososa.me', 'http://localhost:3050']
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+// }
 
 
 const PORT = process.env.PORT || 3050;
@@ -26,6 +26,7 @@ app.options('*', cors());
 // Add Access Control Allow Origin headers
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
@@ -57,7 +58,7 @@ app.get("/", (req, res, next) => {
 });
 
 //endpoint "movies"
-app.get("/movies", cors(corsOptions), (req, res, next) => {
+app.get("/movies", (req, res, next) => {
   const sql = "SELECT * FROM ghibli";
 
   connection.query(sql, (error, results) => {
@@ -72,7 +73,7 @@ app.get("/movies", cors(corsOptions), (req, res, next) => {
   //res.send('List of Ghibli movies');
 });
 
-app.get("/movies/:id", (req, res) => {
+app.get("/movies/:id", (req, res, next) => {
   const { id } = req.params;
   const sql = `SELECT * FROM ghibli WHERE id = ${id}`;
   connection.query(sql, (error, results) => {
@@ -85,7 +86,7 @@ app.get("/movies/:id", (req, res) => {
   });
 });
 
-app.post("/add", (req, res) => {
+app.post("/add", (req, res, next) => {
   const sql = "INSERT INTO ghibli SET ?";
   const movieObj = {
     title: req.body.title,
@@ -102,7 +103,7 @@ app.post("/add", (req, res) => {
   });
 });
 
-app.put("/update/:id", cors(corsOptions), (req, res, next) => {
+app.put("/update/:id", (req, res, next) => {
   const { id } = req.params;
   const {
     title,

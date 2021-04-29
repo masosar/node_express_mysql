@@ -3,13 +3,13 @@ const cors = require("cors");
 const mysql = require("mysql");
 const bodyParser = require("body-parser");
 
-const whitelist = ['http://marcososa.me', 'http://submarcososa.me']
+const whitelist = ['http://marcososa.me', 'http://submarcososa.me', 'http://localhost:3050']
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
       callback(null, true)
     } else {
-      callback(new Error('Not allowed by CORS'))
+      callback(new Error('Not allowed by CORS'));
     }
   },
 }

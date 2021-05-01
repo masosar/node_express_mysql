@@ -1,45 +1,33 @@
 const express = require("express");
-const cors = require("cors");
+//const cors = require("cors");
 const mysql = require("mysql");
 const bodyParser = require("body-parser");
-
-// const whitelist = ['http://marcososa.me', 'http://submarcososa.me', 'http://localhost:3050']
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     if (whitelist.indexOf(origin) !== -1) {
-//       callback(null, true)
-//     } else {
-//       callback(new Error('Not allowed by CORS'));
-//     }
-//   },
-// }
-
 
 const PORT = process.env.PORT || 3050;
 
 const app = express();
 
-app.use(cors());
+//app.use(cors());
 
-app.options('*', cors());
+//app.options('*', cors());
 
 // Add Access Control Allow Origin headers
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  res.header('Content-Type', 'application/json');
-  // res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    "Origin, X-Requested, Content-Type, Accept Authorization"
+  )
+  
       // intercept OPTIONS method
-      if ('OPTIONS' == req.method) {
-        res.send(200);
+      if (req.method === 'OPTIONS' ) {
+        res.header(
+          "Access-Control-Allow-Methods",
+          "POST, PUT, PATCH, GET, DELETE"
+        )
+        return res.status(200).json({})
       }
-      else {
-        next();
-      }
+      next();
 });
 
 app.use(bodyParser.json());

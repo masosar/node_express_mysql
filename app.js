@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = require("cors");
+//const cors = require("cors");
 const mysql = require("mysql");
 const bodyParser = require("body-parser");
 
@@ -9,7 +9,7 @@ const app = express();
 
 //app.use(cors());
 //app.use(cors({ origin: "http://marcososa.me", credentials: true }))
-app.use(cors({ origin: "*", credentials: true }))
+//app.use(cors({ origin: "*", credentials: true }))
 
 
 //app.options('*', cors());

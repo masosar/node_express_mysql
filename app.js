@@ -67,13 +67,13 @@ app.get('/info', (req, res, next) => {
 });
 
 // Authorization
-app.use('', (req, res, next) => {
-  if (req.headers.authorization) {
-      next();
-  } else {
-      res.sendStatus(403);
-  }
-});
+// app.use('', (req, res, next) => {
+//   if (req.headers.authorization) {
+//       next();
+//   } else {
+//       res.sendStatus(403);
+//   }
+// });
 
 // Proxy endpoints
 app.use('/node-ex-mysql', createProxyMiddleware({

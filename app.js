@@ -2,11 +2,18 @@ const express = require("express");
 //const cors = require("cors");
 const mysql = require("mysql");
 const bodyParser = require("body-parser");
+//proxy
+const morgan = require("morgan");
+const { createProxyMiddleware } = require('http-proxy-middleware');
+
+const API_SERVICE_URL = "https://node-ex-mysql.herokuapp.com";
 
 const PORT = process.env.PORT || 3050;
 
 const app = express();
 
+//Logging
+app.use(morgan('dev'));
 //app.use(cors());
 //app.use(cors({ origin: "http://marcososa.me", credentials: true }))
 //app.use(cors({ origin: "*", credentials: true }))
@@ -33,9 +40,7 @@ const app = express();
 //       next();
 // });
 
-// app.use(bodyParser.json());
-
-//mySql
+app.use(bodyParser.json());
 
 //mysql://b96a31a520074a:ea1fc685@us-cdbr-east-03.cleardb.com/heroku_1d21a32f34fbb8d
 const connection = mysql.createPool({
@@ -55,6 +60,35 @@ const connection = mysql.createPool({
 app.get("/", (req, res, next) => {
   res.send("Welcome to my API");
 });
+
+// Info GET endpoint
+app.get('/info', (req, res, next) => {
+  res.send('This is a proxy service which proxies to Billing and Account APIs.');
+});
+
+// Authorization
+app.use('', (req, res, next) => {
+  if (req.headers.authorization) {
+      next();
+  } else {
+      res.sendStatus(403);
+  }
+});
+
+// Proxy endpoints
+app.use('/node-ex-mysql', createProxyMiddleware({
+  target: API_SERVICE_URL,
+  changeOrigin: true,
+  pathRewrite: {
+      [`^/node-ex-mysql`]: '',
+  },
+}));
+
+
+
+
+
+
 
 //endpoint "movies"
 app.get("/movies", (req, res, next) => {

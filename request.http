@@ -1,0 +1,29 @@
+###
+GET http://localhost:3060/posts HTTP/1.1
+
+###
+POST http://localhost:3060/posts HTTP/1.1
+Content-Type: application/json
+
+{
+    "category_id": 1,
+    "title": "Posted from vcode",
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut interdum est nec lorem mattis interdum. Cras augue est, interdum eu consectetur et, faucibus vel turpis. Etiam pulvinar, enim quis elementum iaculis, tortor sapien eleifend eros, vitae rutrum augue quam sed leo.",
+    "author":"Mark Sosa",
+    "created_at": "2020-09-20T01:32:42.000Z"
+}
+
+###
+DELETE  http://localhost:3060/posts/23 HTTP/1.1
+
+###
+PUT http://localhost:3060/posts/24 HTTP/1.1
+Content-Type: application/json
+
+{
+    "category_id": 6,
+    "title": "uPDATED from vcode again",
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut interdum est nec lorem mattis interdum. Cras augue est, interdum eu consectetur et, faucibus vel turpis. Etiam pulvinar, enim quis elementum iaculis, tortor sapien eleifend eros, vitae rutrum augue quam sed leo.",
+    "author":"Mark Sosa",
+    "created_at": "2020-09-20T01:32:42.000Z"
+}

@@ -3,42 +3,17 @@ const express = require("express");
 const mysql = require("mysql");
 const bodyParser = require("body-parser");
 //proxy
-const morgan = require("morgan");
-const { createProxyMiddleware } = require('http-proxy-middleware');
+// const morgan = require("morgan");
+// const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const API_SERVICE_URL = "https://node-ex-mysql.herokuapp.com";
 
-const PORT = process.env.PORT || 3050;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 
 //Logging
-app.use(morgan('dev'));
-//app.use(cors());
-//app.use(cors({ origin: "http://marcososa.me", credentials: true }))
-//app.use(cors({ origin: "*", credentials: true }))
-
-
-//app.options('*', cors());
-
-// Add Access Control Allow Origin headers
-// app.use((req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested, Content-Type"
-//   )
-  
-//       // intercept OPTIONS method
-//       if (req.method === 'OPTIONS' ) {
-//         res.header(
-//           "Access-Control-Allow-Methods",
-//           "POST, PUT, PATCH, GET, DELETE"
-//         )
-//         return res.status(200).json({})
-//       }
-//       next();
-// });
+// app.use(morgan('dev'));
 
 app.use(bodyParser.json());
 
@@ -75,18 +50,14 @@ app.get('/info', (req, res, next) => {
 //   }
 // });
 
-// Proxy endpoints
-app.use('/node-ex-mysql', createProxyMiddleware({
-  target: API_SERVICE_URL,
-  changeOrigin: true,
-  pathRewrite: {
-      [`^/node-ex-mysql`]: '',
-  },
-}));
-
-
-
-
+// // Proxy endpoints
+// app.use('/node-ex-mysql', createProxyMiddleware({
+//   target: API_SERVICE_URL,
+//   changeOrigin: true,
+//   pathRewrite: {
+//       [`^/node-ex-mysql`]: '',
+//   },
+// }));
 
 
 
